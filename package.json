@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev --parallel",
+    "dev:web": "turbo dev:web --parallel",
+    "dev:window": "turbo dev:window --parallel",
+    "lint": "turbo lint"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "turbo": "latest"
+  }
+}
