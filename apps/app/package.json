@@ -1,34 +1,30 @@
 {
-  "name": "logbook",
+  "name": "app",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:web": "vite",
+    "dev": "next dev",
     "dev:window": "tauri dev",
-    "lint": "tsc",
-    "build": "vite build",
-    "preview": "vite preview",
-    "tauri": "tauri"
+    "dev:web": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.4.0",
-    "@tiptap/pm": "^2.1.11",
-    "@tiptap/react": "^2.1.11",
-    "@tiptap/starter-kit": "^2.1.11",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@types/node": "20.6.4",
+    "@types/react": "18.2.22",
+    "@types/react-dom": "18.2.7",
+    "autoprefixer": "10.4.16",
+    "eslint": "8.50.0",
+    "eslint-config-next": "13.5.2",
+    "next": "13.5.2",
+    "postcss": "8.4.30",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "3.3.3",
+    "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.4.0",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.3",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.4"
+    "@tauri-apps/cli": "^1.4.0"
   }
 }
