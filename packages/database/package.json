@@ -1,0 +1,14 @@
+{
+  "name": "@logbook/database",
+  "version": "0.0.0",
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.3.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.3.1"
+  }
+}
