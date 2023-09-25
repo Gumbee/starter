@@ -7,6 +7,7 @@
   "scripts": {
     "build": "turbo build",
     "db:generate": "turbo db:generate",
+    "db:push": "turbo db:push",
     "dev": "turbo dev --parallel",
     "dev:web": "turbo dev:web --parallel",
     "dev:window": "turbo dev:window --parallel",

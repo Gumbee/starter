@@ -11,17 +11,18 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(uuid())
+  id                String           @id @default(uuid())
   userId            String
-  provider          String
+  provider          EAccountProvider
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  password          String?
+  refresh_token     String?          @db.Text
+  access_token      String?          @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id_token          String?          @db.Text
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -38,4 +39,9 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum EAccountProvider {
+  LOCAL
+  GOOGLE
 }

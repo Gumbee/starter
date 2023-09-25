@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Request, Response } from 'express';
-import { AUTH_COOKIE_OPTIONS } from './config/authCookie';
-import { AUTH_COOKIE_NAME } from 'src/constants';
+import { Response } from 'express';
 import { User } from '@logbook/database';
+import { AUTH_COOKIE_OPTIONS } from './config/authCookie';
+import { AUTH_COOKIE_NAME } from '@logbook/constants';
 
 @Injectable()
 export class CookiesService {
