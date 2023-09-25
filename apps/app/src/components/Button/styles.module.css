@@ -1,0 +1,11 @@
+.button {
+  @apply active:scale-[var(--scaling,0.98)] transition-transform duration-150 ease-out;
+}
+
+.button.button--white {
+  transition:
+    transform 0.15s ease-out,
+    background-color 0.15s ease-in-out;
+
+  @apply bg-white hover:bg-gray-100;
+}
