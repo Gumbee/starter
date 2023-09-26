@@ -1,0 +1,9 @@
+{
+  "name": "@logbook/api",
+  "version": "0.0.0",
+  "dependencies": {
+    "@logbook/types": "*",
+    "axios": "^1.5.0",
+    "swr": "^2.2.4"
+  }
+}

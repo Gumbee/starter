@@ -16,8 +16,8 @@ async function bootstrap() {
 
   app.enableCors({
     origin: ['production', 'test'].includes(NODE_ENV)
-      ? [process.env.FRONTEND_URL ?? `http://127.0.0.1:3000`]
-      : ['http://127.0.0.1:3000', 'http://localhost:3000'],
+      ? [process.env.FRONTEND_URL ?? `http://localhost:3000`]
+      : ['http://localhost:3000', 'http://localhost:3000'],
     credentials: true,
   });
 

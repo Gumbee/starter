@@ -1,0 +1,7 @@
+{
+  "name": "@logbook/auth",
+  "version": "0.0.0",
+  "dependencies": {
+    "@logbook/api": "*"
+  }
+}

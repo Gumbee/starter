@@ -7,7 +7,9 @@ import { AuthService } from './auth.service';
 import { GoogleOAuthGuard } from './guards/google.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Authentication')
 @Controller(`auth`)
 export class AuthController {
   constructor(
@@ -38,11 +40,11 @@ export class AuthController {
     };
   }
 
-  @Get('/google')
+  @Get('/oauth/google')
   @UseGuards(GoogleOAuthGuard)
   async googleAuth(@Req() req: Request) {}
 
-  @Get('/google/callback')
+  @Get('/oauth/google/callback')
   @UseGuards(GoogleOAuthGuard)
   googleAuthRedirect(@Req() req: Request) {
     return {

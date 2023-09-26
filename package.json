@@ -10,7 +10,7 @@
     "db:push": "turbo db:push",
     "dev": "turbo dev --parallel",
     "dev:web": "turbo dev:web --parallel",
-    "dev:window": "turbo dev:window --parallel",
+    "dev:desktop": "turbo dev:desktop --parallel",
     "lint": "turbo lint"
   },
   "devDependencies": {

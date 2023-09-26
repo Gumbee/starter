@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:window": "tauri dev",
+    "dev:desktop": "tauri dev",
     "dev:web": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@logbook/api": "*",
+    "@logbook/auth": "*",
     "@phosphor-icons/react": "^2.0.13",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/react": "^2.1.11",
