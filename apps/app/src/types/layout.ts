@@ -1,3 +1,5 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
 
-export type LayoutProps<T = {}> = PropsWithChildren<T>;
+export type LayoutProps<T = {}> = PropsWithChildren<T> & {
+  className?: string;
+};

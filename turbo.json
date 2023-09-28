@@ -5,6 +5,14 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "build:web": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "build:desktop": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
     "lint": {},
     "db:generate": {},
     "db:push": {},

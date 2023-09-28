@@ -30,19 +30,10 @@ fn main() {
       tauri_plugin_deep_link::register(
         "logbook",
         move |request| {
-          dbg!(&request);
           handle.emit_all("scheme-request-received", request).unwrap();
         },
       )
       .unwrap();
-
-      // If you also need the url when the primary instance was started by the custom scheme, you currently have to read it yourself
-      /*
-      #[cfg(not(target_os = "macos"))] // on macos the plugin handles this (macos doesn't use cli args for the url)
-      if let Some(url) = std::env::args().nth(1) {
-        app.emit_all("scheme-request-received", url).unwrap();
-      }
-      */
 
       Ok(())
     })

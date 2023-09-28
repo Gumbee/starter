@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "dev:desktop": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri dev",
-    "dev:web": "next dev",
     "build": "next build",
     "build:desktop": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build",
     "build:desktop:debug": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build --debug",

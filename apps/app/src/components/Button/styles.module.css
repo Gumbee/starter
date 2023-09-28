@@ -1,11 +1,23 @@
 .button {
-  @apply active:scale-[var(--scaling,0.98)] transition-transform duration-150 ease-out;
+  @apply active:scale-[var(--scaling,0.98)] transition-transform duration-150 ease-out px-[16px] py-[14px] rounded-[10px] font-medium text-sm;
 }
 
-.button.button--white {
+.button.button--white,
+.button.button--success,
+.button.button--gray {
   transition:
     transform 0.15s ease-out,
     background-color 0.15s ease-in-out;
+}
 
+.button.button--white {
   @apply bg-white hover:bg-gray-100;
+}
+
+.button.button--success {
+  @apply bg-[#72DA61] hover:bg-[#6bd15c] text-white;
+}
+
+.button.button--gray {
+  @apply bg-[#F6F6F6] hover:bg-[#f2f2f2] text-black;
 }

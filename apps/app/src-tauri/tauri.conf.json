@@ -63,10 +63,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 900,
         "resizable": true,
-        "title": "logbook",
-        "width": 800
+        "title": "logbook.",
+        "width": 1400
       }
     ]
   }

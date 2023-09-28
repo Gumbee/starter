@@ -1,8 +1,14 @@
-import { API_BASE_URL, ROUTES } from '@logbook/api';
-import { OAuthProvider } from './types';
+import { API_BASE_URL } from '@logbook/api/constants';
+import { OAuthHook, OAuthProvider } from './types';
+import { useState } from 'react';
+import { ROUTES } from '@logbook/api/routes';
 
-export function useOAuthProviderSignin() {
+export function useOAuthProviderSignin(): OAuthHook {
+  const [loading, setLoading] = useState(false);
+
   const handleOAuthLogin = (provider: OAuthProvider): Promise<any> => {
+    setLoading(true);
+
     return new Promise((resolve, reject) => {
       const popup = window.open(
         `${API_BASE_URL}${ROUTES.getOauthRoute(provider)}`,
@@ -78,8 +84,10 @@ export function useOAuthProviderSignin() {
       window.addEventListener(`close`, handleClosed);
       window.addEventListener(`unload`, handleClosed);
       window.addEventListener(`message`, handleMessage);
+    }).finally(() => {
+      setLoading(false);
     });
   };
 
-  return { handleOAuthLogin };
+  return { handleOAuthLogin, loading };
 }

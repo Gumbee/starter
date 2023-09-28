@@ -18,8 +18,6 @@ export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-nat
   }
 
   authenticate(req: any, options?: any): void {
-    console.log('Authenticating with Google Native');
-
     options.req = req;
 
     super.authenticate(req, options);

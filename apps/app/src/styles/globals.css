@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  color: #333;
+button,
+input {
+  @apply outline-none focus-visible:outline-[2px] focus-visible:outline-black focus-visible:outline-offset-0;
 }

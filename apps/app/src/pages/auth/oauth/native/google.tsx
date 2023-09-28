@@ -14,7 +14,7 @@ const Page: LogbookPage = ({}) => {
   const redirected = useRef(false);
 
   useEffect(() => {
-    if (!redirected.current) {
+    if (!redirected.current && window.location.search.includes('code=')) {
       redirected.current = true;
 
       redirect();
