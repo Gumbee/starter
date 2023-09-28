@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:desktop": "tauri dev",
+    "dev:desktop": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri dev",
     "dev:web": "next dev",
     "build": "next build",
+    "build:desktop": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build",
+    "build:desktop:debug": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build --debug",
     "start": "next start",
     "lint": "next lint"
   },
@@ -22,6 +24,7 @@
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.16",
     "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.2",
     "next": "13.5.2",
@@ -33,6 +36,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.4.0"
+    "@tauri-apps/cli": "^1.4.0",
+    "ignore-loader": "^0.1.2"
   }
 }

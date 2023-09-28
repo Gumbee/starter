@@ -11,7 +11,12 @@ const Page: LogbookPage = ({}) => {
 
   return (
     <div>
-      <Button variant="white" onClick={() => handleOAuthLogin('google')}>
+      <Button
+        variant="white"
+        onClick={() => {
+          handleOAuthLogin('google');
+        }}
+      >
         Sign in
       </Button>
     </div>

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CookiesService } from '../cookies/cookies.service';
 import { CredentialsLoginDTO } from './dto/credentials-login.dto';
@@ -8,11 +8,14 @@ import { GoogleOAuthGuard } from './guards/google.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { GoogleOAuthNativeGuard } from './guards/google-native.guard';
+import { FrontendService } from '@modules/frontend/frontend.service';
 
 @ApiTags('Authentication')
 @Controller(`auth`)
 export class AuthController {
   constructor(
+    private frontendService: FrontendService,
     private cookiesService: CookiesService,
     private authService: AuthService,
   ) {}
@@ -42,14 +45,36 @@ export class AuthController {
 
   @Get('/oauth/google')
   @UseGuards(GoogleOAuthGuard)
-  async googleAuth(@Req() req: Request) {}
+  async googleAuth() {}
 
   @Get('/oauth/google/callback')
   @UseGuards(GoogleOAuthGuard)
-  googleAuthRedirect(@Req() req: Request) {
-    return {
+  googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    const state = req.query.state ? JSON.parse(Buffer.from(req.query.state as string, 'base64').toString('utf-8')) : undefined;
+
+    return res.json({
       user: req.user,
-    };
+      state,
+    });
+  }
+
+  @Get('/oauth/native/google')
+  @UseGuards(GoogleOAuthNativeGuard)
+  async googleAuthNative() {}
+
+  @Get('/oauth/native/google/callback')
+  async googleAuthNativeCallback(@Req() req: Request, @Res() res: Response) {
+    const query = req.url.split('?')[1];
+
+    return res.redirect(this.frontendService.getFrontendPath('/auth/oauth/native/google') + `${query ? `?${query}` : ``}`);
+  }
+
+  @Post('/oauth/native/google/redeem')
+  @UseGuards(GoogleOAuthNativeGuard)
+  googleAuthRedirectNativeRedeem(@Req() req: Request, @Res() res: Response) {
+    return res.json({
+      user: req.user,
+    });
   }
 
   @Post(`signout`)

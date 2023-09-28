@@ -9,4 +9,6 @@ export const ROUTES = {
   getCredentialsSigninRoute: () => `/auth/signin/credentials`,
   getCredentialsSignupRoute: () => `/auth/signup/credentials`,
   getOauthRoute: (provider: string) => `/auth/oauth/${provider}`,
+  getOauthNativeRoute: (provider: string) => `/auth/oauth/native/${provider}`,
+  getOauthNativeRedeemRoute: (provider: string) => `/auth/oauth/native/${provider}/redeem`,
 };

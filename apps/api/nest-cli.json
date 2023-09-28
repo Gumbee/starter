@@ -4,6 +4,8 @@
   "sourceRoot": "src",
   "entryFile": "apps/api/src/main",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "assets": ["**/*.hbs"],
+    "watchAssets": true
   }
 }

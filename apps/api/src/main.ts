@@ -3,11 +3,13 @@ import { AppModule } from './modules/app/app.module';
 import { VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NODE_ENV } from './constants/environment';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 const config = new DocumentBuilder().setTitle(`Logbook API`).setDescription(`Documentation for the Logbook API`).setVersion(`1.0`).build();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {});
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {});
 
   app.enableVersioning({
     type: VersioningType.URI,
@@ -20,6 +22,10 @@ async function bootstrap() {
       : ['http://localhost:3000', 'http://localhost:3000'],
     credentials: true,
   });
+
+  app.useStaticAssets(join(__dirname, '..', '..', '..', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', '..', '..', 'views'));
+  app.setViewEngine('hbs');
 
   // enable swagger in development
   if (NODE_ENV === 'development') {

@@ -7,10 +7,12 @@ import { GoogleStrategy } from './strategies/google.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserModule } from '@modules/user/user.module';
 import { AccountsModule } from '@modules/accounts/accounts.module';
+import { GoogleNativeStrategy } from './strategies/google-native.strategy';
+import { FrontendModule } from '@modules/frontend/frontend.module';
 
 @Module({
-  imports: [CookiesModule, UserModule, AccountsModule],
+  imports: [FrontendModule, CookiesModule, UserModule, AccountsModule],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, LocalStrategy, GoogleStrategy],
+  providers: [AuthService, JwtStrategy, LocalStrategy, GoogleStrategy, GoogleNativeStrategy],
 })
 export class AuthModule {}
