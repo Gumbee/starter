@@ -1,13 +1,13 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
 import { UnauthorizedException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { AccountsService } from 'src/modules/accounts/accounts.service';
+import { AccountService } from '@modules/account/account.service';
 import { EAccountProvider } from '@logbook/database';
 import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, `local`) {
-  constructor(private accountService: AccountsService) {
+  constructor(private accountService: AccountService) {
     super({ usernameField: `email` });
   }
 

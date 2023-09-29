@@ -4,10 +4,17 @@
     <title>App</title>
   </head>
   <body>
-    {{message}}
-    Ok
+    <script type='text/javascript' nonce='<%= nonce %>'>
+      if (window.opener) {
+      {{#if data}}
+        const data = { status: 'success', data:
+        {{{json data}}}
+        };
+      {{else}}
+        const data = { status: 'error', error: 'Error' };
+      {{/if}}
+
+      window.opener.postMessage(JSON.stringify(data), "{{frontend}}"); }
+    </script>
   </body>
-  <script>
-    window.location.href = 'logbook://oauth?' + window.location.search;
-  </script>
 </html>

@@ -6,12 +6,13 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserModule } from '@modules/user/user.module';
-import { AccountsModule } from '@modules/accounts/accounts.module';
+import { AccountModule } from '@modules/account/account.module';
 import { GoogleNativeStrategy } from './strategies/google-native.strategy';
 import { FrontendModule } from '@modules/frontend/frontend.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [FrontendModule, CookiesModule, UserModule, AccountsModule],
+  imports: [JwtModule, FrontendModule, CookiesModule, UserModule, AccountModule],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, LocalStrategy, GoogleStrategy, GoogleNativeStrategy],
 })

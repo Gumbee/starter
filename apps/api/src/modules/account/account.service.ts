@@ -1,16 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ParameterMissingException } from 'src/exceptions/parameter-missing-exception';
-import { Account, EAccountProvider } from '@logbook/database';
+import { Prisma, EAccountProvider, User, Account } from '@logbook/database';
+import { Optional } from '@logbook/types';
 
 @Injectable()
-export class AccountsService {
+export class AccountService {
   constructor(private prisma: PrismaService) {}
 
-  async create(input: Omit<Account, 'createdAt' | 'updatedAt'>) {
+  async create(input: Omit<Prisma.AccountCreateInput, 'id' | 'createdAt' | 'updatedAt'>) {
     return this.prisma.account.create({
       data: {
         ...input,
+      },
+      include: {
+        user: true,
       },
     });
   }
@@ -18,7 +22,7 @@ export class AccountsService {
   /**
    * Return the account (of a given provider type) associated with the given email
    */
-  async findByEmailAndProvider(email: string, provider: EAccountProvider): Promise<Account> {
+  async findByEmailAndProvider(email: string, provider: EAccountProvider): Promise<Optional<Account & { user: User }>> {
     ParameterMissingException.throwUnlessExist(email, provider);
 
     return this.prisma.account.findFirst({

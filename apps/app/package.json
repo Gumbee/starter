@@ -14,6 +14,8 @@
   "dependencies": {
     "@logbook/api": "*",
     "@logbook/auth": "*",
+    "@logbook/constants": "*",
+    "@logbook/database": "*",
     "@phosphor-icons/react": "^2.0.13",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/react": "^2.1.11",

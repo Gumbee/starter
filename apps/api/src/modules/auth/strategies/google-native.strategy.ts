@@ -1,11 +1,15 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback } from 'passport-google-oauth20';
-import { Injectable } from '@nestjs/common';
+import { Strategy, Profile } from 'passport-google-oauth20';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-native') {
-  constructor(config: ConfigService) {
+  constructor(
+    config: ConfigService,
+    private authService: AuthService,
+  ) {
     super({
       clientID: config.get('GOOGLE_CLIENT_ID'),
       clientSecret: config.get('GOOGLE_CLIENT_SECRET'),
@@ -44,22 +48,15 @@ export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-nat
     };
   }
 
-  async validate(accessToken: string, refreshToken: string, profile: any, done: VerifyCallback): Promise<any> {
-    const { name, emails, photos } = profile;
+  async validate(accessToken: string, refreshToken: string, profile: Profile): Promise<any> {
+    let account = await this.authService.findGoogleAccount(profile);
 
-    const email = emails.length > 0 ? emails[0].value : undefined;
-    const avatar = photos[0].value;
-    const firstName = name.givenName;
-    const lastName = name.familyName;
+    if (!account) {
+      account = await this.authService.createAccountFromGoogle(profile, accessToken, refreshToken, ['email', 'profile']);
+    }
 
-    return {
-      id: 'asdiajsd',
-      email,
-      avatar,
-      firstName,
-      lastName,
-      accessToken,
-      refreshToken,
-    };
+    if (!account.user) throw new NotFoundException('Google account failed to create user');
+
+    return account.user;
   }
 }

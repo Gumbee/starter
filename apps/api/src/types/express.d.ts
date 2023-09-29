@@ -1,10 +1,9 @@
-import { User } from '@logbook/database';
+import { User as UserDB } from '@logbook/database';
 
+// set the user type on the express request object
 declare global {
   namespace Express {
-    interface Request {
-      user?: User;
-    }
+    interface User extends UserDB {}
   }
 }
 

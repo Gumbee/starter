@@ -5,6 +5,7 @@ import { Response } from 'express';
 import { User } from '@logbook/database';
 import { AUTH_COOKIE_OPTIONS } from './config/authCookie';
 import { AUTH_COOKIE_NAME } from '@logbook/constants';
+import { TokenUser } from '@/types/token';
 
 @Injectable()
 export class CookiesService {
@@ -14,13 +15,14 @@ export class CookiesService {
   ) {}
 
   setUserTokenCookie(res: Response, user: User) {
-    const payload = {
+    const payload: { sub: string; user: TokenUser } = {
       sub: user.id,
       user: {
         id: user.id,
         email: user.email,
         avatar: user.avatar,
         name: user.name,
+        role: user.role,
       },
     };
 

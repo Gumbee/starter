@@ -11,4 +11,6 @@ export const ROUTES = {
   getOauthRoute: (provider: string) => `/auth/oauth/${provider}`,
   getOauthNativeRoute: (provider: string) => `/auth/oauth/native/${provider}`,
   getOauthNativeRedeemRoute: (provider: string) => `/auth/oauth/native/${provider}/redeem`,
+  // USER
+  getMe: () => `/users/me`,
 };

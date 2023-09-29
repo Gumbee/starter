@@ -10,18 +10,20 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
 import { GoogleOAuthNativeGuard } from './guards/google-native.guard';
 import { FrontendService } from '@modules/frontend/frontend.service';
+import { ConfigService } from '@nestjs/config';
 
 @ApiTags('Authentication')
 @Controller(`auth`)
 export class AuthController {
   constructor(
+    private config: ConfigService,
     private frontendService: FrontendService,
     private cookiesService: CookiesService,
     private authService: AuthService,
   ) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post(`signin/credentials`)
+  @UseGuards(LocalAuthGuard)
   async login(@Req() req: Request, @Body() credentials: CredentialsLoginDTO, @Res({ passthrough: true }) res: Response) {
     const user = req.user!;
 
@@ -34,7 +36,7 @@ export class AuthController {
 
   @Post(`/signup/credentials`)
   async signup(@Body() credentials: CredentialsSignupDTO, @Res({ passthrough: true }) res: Response) {
-    const user = await this.authService.signupWithCredentials(credentials);
+    const { user } = await this.authService.createAccountFromCredentials(credentials);
 
     this.cookiesService.setUserTokenCookie(res, user);
 
@@ -49,13 +51,18 @@ export class AuthController {
 
   @Get('/oauth/google/callback')
   @UseGuards(GoogleOAuthGuard)
-  googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
-    const state = req.query.state ? JSON.parse(Buffer.from(req.query.state as string, 'base64').toString('utf-8')) : undefined;
+  @Render('oauth')
+  googleAuthRedirect(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    const user = req.user;
 
-    return res.json({
-      user: req.user,
-      state,
-    });
+    this.cookiesService.setUserTokenCookie(res, user);
+
+    return {
+      data: {
+        user,
+      },
+      frontend: this.config.get(`FRONTEND_URL`),
+    };
   }
 
   @Get('/oauth/native/google')
@@ -72,8 +79,12 @@ export class AuthController {
   @Post('/oauth/native/google/redeem')
   @UseGuards(GoogleOAuthNativeGuard)
   googleAuthRedirectNativeRedeem(@Req() req: Request, @Res() res: Response) {
+    const user = req.user;
+
+    this.cookiesService.setUserTokenCookie(res, user);
+
     return res.json({
-      user: req.user,
+      user: user,
     });
   }
 

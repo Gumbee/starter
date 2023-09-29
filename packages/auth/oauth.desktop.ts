@@ -1,3 +1,4 @@
+import { User } from '@logbook/database';
 import { api } from '@logbook/api/client';
 import { ROUTES } from '@logbook/api/routes';
 import { OAuthHook, OAuthProvider } from './types';
@@ -7,6 +8,7 @@ import { UnlistenFn, listen } from '@tauri-apps/api/event';
 import { useState } from 'react';
 import { Optional } from '@logbook/types';
 import { API_BASE_URL } from '@logbook/api/constants';
+import { useSetUser } from './store/hooks';
 
 let unlisten: Optional<UnlistenFn> = undefined;
 
@@ -15,10 +17,12 @@ let t: Optional<ReturnType<typeof setTimeout>> = undefined;
 export function useOAuthProviderSignin(): OAuthHook {
   const [loading, setLoading] = useState(false);
 
+  const setUser = useSetUser;
+
   const handleOAuthLogin = (provider: OAuthProvider): Promise<any> => {
     setLoading(true);
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise<Optional<User>>(async (resolve, reject) => {
       const [codeChallenge, codeVerifier] = await invoke<[string, string]>('generate_code_challenge');
 
       // felt weird when it opens instantly, so we wait a bit
@@ -75,6 +79,14 @@ export function useOAuthProviderSignin(): OAuthHook {
         },
         1000 * 60 * 5,
       );
+    }).then((user) => {
+      if (user) {
+        setUser(user);
+      }
+
+      window.location.replace('/log/[id]?id=mimom');
+
+      return user;
     });
   };
 
