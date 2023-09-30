@@ -1,11 +1,14 @@
+import { ERROR_CODES } from '@logbook/common/errors';
 import { BadRequestException } from '@nestjs/common';
 
 export class ParameterMissingException extends BadRequestException {
   public static throwUnlessExist(...params: any[]) {
-    if (!params.every((p) => !!p)) throw new ParameterMissingException(`A parameter which was needed is missing`);
+    if (!params.every((p) => !!p))
+      throw new ParameterMissingException({ code: ERROR_CODES.BAD_PAYLOAD, message: `A parameter which was needed is missing` });
   }
 
   public static throwIfExists(...params: any[]) {
-    if (!params.every((p) => !p)) throw new ParameterMissingException(`A parameter which was provided was not allowed`);
+    if (!params.every((p) => !p))
+      throw new ParameterMissingException({ code: ERROR_CODES.BAD_PAYLOAD, message: `A parameter which was not needed is present` });
   }
 }

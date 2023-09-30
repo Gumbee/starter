@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Post, Render, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CookiesService } from '../cookies/cookies.service';
-import { CredentialsLoginDTO } from './dto/credentials-login.dto';
 import { CredentialsSignupDTO } from './dto/credentials-signup.dto';
 import { AuthService } from './auth.service';
 import { GoogleOAuthGuard } from './guards/google.guard';
@@ -11,6 +10,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { GoogleOAuthNativeGuard } from './guards/google-native.guard';
 import { FrontendService } from '@modules/frontend/frontend.service';
 import { ConfigService } from '@nestjs/config';
+import { ERROR_CODES } from '@logbook/common/errors';
 
 @ApiTags('Authentication')
 @Controller(`auth`)
@@ -24,7 +24,7 @@ export class AuthController {
 
   @Post(`signin/credentials`)
   @UseGuards(LocalAuthGuard)
-  async login(@Req() req: Request, @Body() credentials: CredentialsLoginDTO, @Res({ passthrough: true }) res: Response) {
+  async signin(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const user = req.user!;
 
     this.cookiesService.setUserTokenCookie(res, user);
@@ -36,6 +36,12 @@ export class AuthController {
 
   @Post(`/signup/credentials`)
   async signup(@Body() credentials: CredentialsSignupDTO, @Res({ passthrough: true }) res: Response) {
+    const existing = await this.authService.doesUserExist(credentials.email);
+
+    if (existing) {
+      throw new UnauthorizedException({ code: ERROR_CODES.USER_EXISTS, message: 'User with this email address exists already.' });
+    }
+
     const { user } = await this.authService.createAccountFromCredentials(credentials);
 
     this.cookiesService.setUserTokenCookie(res, user);

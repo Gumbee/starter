@@ -1,7 +1,7 @@
-import useSWR from "swr";
-import { BareFetcher, PublicConfiguration } from "swr/_internal";
-import { api } from "./api";
-import { Maybe } from "@logbook/types";
+import useSWR from 'swr';
+import { BareFetcher, PublicConfiguration } from 'swr/_internal';
+import { api } from './api';
+import { Maybe } from '@logbook/common/types';
 
 export const apiFetcher = (url: string) =>
   url

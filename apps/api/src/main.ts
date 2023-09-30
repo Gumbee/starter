@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app/app.module';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NODE_ENV } from './constants/environment';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import cookieParser from 'cookie-parser';
 import Handlebars from 'hbs';
 import { join } from 'path';
+import { GeneralExceptionFilter } from './filters/generalException.filter';
 
 const config = new DocumentBuilder().setTitle(`Logbook API`).setDescription(`Documentation for the Logbook API`).setVersion(`1.0`).build();
 
@@ -29,9 +30,17 @@ async function bootstrap() {
     return JSON.stringify(context);
   });
 
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // only allows input from specified DTO fields
+    }),
+  );
+  app.useGlobalFilters(new GeneralExceptionFilter());
+
   app.useStaticAssets(join(__dirname, '..', '..', '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', '..', '..', 'views'));
   app.setViewEngine('hbs');
+
   app.use(cookieParser());
 
   // enable swagger in development

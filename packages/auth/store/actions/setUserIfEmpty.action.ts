@@ -1,4 +1,4 @@
-import { Getter, Mutator } from '@logbook/types/zustand';
+import { Getter, Mutator } from '@logbook/common/types/zustand';
 import { User } from '@logbook/database';
 import { AuthStore } from '..';
 

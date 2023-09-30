@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from '@logbook/database';
 import { AUTH_COOKIE_OPTIONS } from './config/authCookie';
-import { AUTH_COOKIE_NAME } from '@logbook/constants';
+import { AUTH_COOKIE_NAME } from '@logbook/common/constants';
 import { TokenUser } from '@/types/token';
 
 @Injectable()

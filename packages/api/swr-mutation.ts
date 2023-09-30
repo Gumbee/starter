@@ -1,13 +1,13 @@
-import { Maybe } from "@logbook/types";
-import useSWRMutation from "swr/mutation";
-import { api } from "./api";
+import { Maybe } from '@logbook/common/types';
+import useSWRMutation from 'swr/mutation';
+import { api } from './api';
 
-type Method = "POST" | "PUT";
+type Method = 'POST' | 'PUT';
 
 export const apiPoster =
   (method: Method) =>
   (url: string, { arg }: any) => {
-    const fn = method === "POST" ? api.post : api.put;
+    const fn = method === 'POST' ? api.post : api.put;
 
     return url
       ? fn(url, arg, {
@@ -18,12 +18,8 @@ export const apiPoster =
         });
   };
 
-export function useApiSWRMutation<T>(
-  path: Maybe<string>,
-  method?: Method,
-  options?: Parameters<typeof useSWRMutation<T>>[2],
-) {
-  const fetcher = options?.fetcher ?? apiPoster(method ?? "POST");
+export function useApiSWRMutation<T>(path: Maybe<string>, method?: Method, options?: Parameters<typeof useSWRMutation<T>>[2]) {
+  const fetcher = options?.fetcher ?? apiPoster(method ?? 'POST');
 
   const { data, error, ...rest } = useSWRMutation<T>(path ?? null, fetcher as any, options);
 

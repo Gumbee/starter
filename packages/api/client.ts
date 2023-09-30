@@ -1,5 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { API_BASE_URL } from './constants';
+import { ERROR_CODES } from '@logbook/common/errors';
+import { ApiError } from '@logbook/common/types';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -11,3 +13,35 @@ export const apiSSR = axios.create({
   withCredentials: true,
   headers: { 'Accept-Encoding': 'gzip,deflate,compress' },
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError<ApiError>): Promise<ApiError> => {
+    // transform error to include default error
+    if (error.response?.data) {
+      return Promise.reject(error.response.data);
+    }
+
+    return Promise.reject({
+      code: ERROR_CODES.UNKNOWN_ERROR,
+      message: error.message,
+      status: 500,
+    });
+  },
+);
+
+apiSSR.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError<ApiError>): Promise<ApiError> => {
+    // transform error to include default error
+    if (error.response?.data) {
+      return Promise.reject(error.response.data);
+    }
+
+    return Promise.reject({
+      code: ERROR_CODES.UNKNOWN_ERROR,
+      message: error.message,
+      status: 500,
+    });
+  },
+);

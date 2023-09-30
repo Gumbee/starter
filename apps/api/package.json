@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@logbook/constants": "*",
+    "@logbook/common": "*",
     "@logbook/database": "*",
     "@nestjs/common": "^10.2.6",
     "@nestjs/config": "^3.1.1",
@@ -32,6 +32,7 @@
     "@nestjs/swagger": "^7.1.12",
     "base64url": "^3.0.1",
     "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.10",

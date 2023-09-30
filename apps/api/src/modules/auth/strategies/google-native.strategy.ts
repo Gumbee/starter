@@ -3,6 +3,7 @@ import { Strategy, Profile } from 'passport-google-oauth20';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
+import { ERROR_CODES } from '@logbook/common/errors';
 
 @Injectable()
 export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-native') {
@@ -55,7 +56,9 @@ export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-nat
       account = await this.authService.createAccountFromGoogle(profile, accessToken, refreshToken, ['email', 'profile']);
     }
 
-    if (!account.user) throw new NotFoundException('Google account failed to create user');
+    if (!account?.user) {
+      throw new NotFoundException({ code: ERROR_CODES.UNKNOWN_ERROR, message: 'User could not be created or found for some reason' });
+    }
 
     return account.user;
   }

@@ -1,7 +1,7 @@
+import { AuthStore } from './store';
+
 export type OAuthProvider = 'google';
 
 export type OAuthHook = {
-  handleOAuthLogin: (provider: OAuthProvider) => Promise<any>;
-  //wheather some blocking action is loading
-  loading: boolean;
+  handleOAuthSignin: (provider: OAuthProvider) => Promise<any>;
 };

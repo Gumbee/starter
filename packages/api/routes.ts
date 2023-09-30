@@ -1,4 +1,4 @@
-import { Maybe } from '@logbook/types';
+import { Maybe } from '@logbook/common/types';
 
 const withArgs = (...args: Maybe<string>[]) => (args.some((a) => !a) ? undefined : args[args.length - 1]);
 
@@ -6,11 +6,11 @@ const withArgs = (...args: Maybe<string>[]) => (args.some((a) => !a) ? undefined
 
 export const ROUTES = {
   getSignoutRoute: () => '/auth/signout',
-  getCredentialsSigninRoute: () => `/auth/signin/credentials`,
-  getCredentialsSignupRoute: () => `/auth/signup/credentials`,
-  getOauthRoute: (provider: string) => `/auth/oauth/${provider}`,
-  getOauthNativeRoute: (provider: string) => `/auth/oauth/native/${provider}`,
-  getOauthNativeRedeemRoute: (provider: string) => `/auth/oauth/native/${provider}/redeem`,
+  getCredentialsSignInRoute: () => `/auth/signin/credentials`,
+  getCredentialsSignUpRoute: () => `/auth/signup/credentials`,
+  getOAuthRoute: (provider: string) => `/auth/oauth/${provider}`,
+  getOAuthNativeRoute: (provider: string) => `/auth/oauth/native/${provider}`,
+  getOAuthNativeRedeemRoute: (provider: string) => `/auth/oauth/native/${provider}/redeem`,
   // USER
-  getMe: () => `/users/me`,
+  getUsersMe: () => `/users/me`,
 };

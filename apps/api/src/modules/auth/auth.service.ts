@@ -5,11 +5,18 @@ import { AccountService } from '@modules/account/account.service';
 import { SALT_ROUNDS } from './config';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import bcrypt from 'bcryptjs';
-import { Optional } from '@logbook/types';
+import { UserService } from '@modules/user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private userService: UserService,
+  ) {}
+
+  async doesUserExist(email: string): Promise<boolean> {
+    return this.userService.findByEmail(email).then((x) => !!x);
+  }
 
   async createAccountFromCredentials(credentials: CredentialsSignupDTO): Promise<Account & { user: User }> {
     const hashedPassword = await bcrypt.hash(credentials.password, SALT_ROUNDS);

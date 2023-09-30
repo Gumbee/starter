@@ -1,21 +1,20 @@
 import { API_BASE_URL } from '@logbook/api/constants';
 import { OAuthHook, OAuthProvider } from './types';
-import { useState } from 'react';
 import { ROUTES } from '@logbook/api/routes';
 import { User } from '@logbook/database';
-import { Optional } from '@logbook/types';
-import { useSetUser } from './store/hooks';
+import { Optional } from '@logbook/common/types';
+import { useSetLoading, useSetUser } from './store/hooks';
 
 export function useOAuthProviderSignin(): OAuthHook {
-  const [loading, setLoading] = useState(false);
   const setUser = useSetUser();
+  const setLoading = useSetLoading();
 
-  const handleOAuthLogin = (provider: OAuthProvider): Promise<any> => {
-    setLoading(true);
+  const handleOAuthSignin = (provider: OAuthProvider): Promise<any> => {
+    setLoading(provider);
 
     return new Promise<Optional<User>>((resolve, reject) => {
       const popup = window.open(
-        `${API_BASE_URL}${ROUTES.getOauthRoute(provider)}`,
+        `${API_BASE_URL}${ROUTES.getOAuthRoute(provider)}`,
         undefined,
         `popup=yes,left=1000,top=100,width=700,height=800`,
       );
@@ -97,9 +96,9 @@ export function useOAuthProviderSignin(): OAuthHook {
         return user;
       })
       .finally(() => {
-        setLoading(false);
+        setLoading(undefined);
       });
   };
 
-  return { handleOAuthLogin, loading };
+  return { handleOAuthSignin };
 }

@@ -1,11 +1,12 @@
 import { apiSSR } from '@logbook/api/client';
 import { ROUTES } from '@logbook/api/routes';
 import { User } from '@logbook/database';
-import { AUTH_COOKIE_NAME, IS_NATIVE_APP } from '@logbook/constants';
+import { AUTH_COOKIE_NAME } from '@logbook/common/constants';
+import { IS_NATIVE_APP } from '@logbook/common/environment';
 import { GetServerSideProps, PreviewData } from 'next';
 import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { Optional } from '@logbook/types';
+import { Optional } from '@logbook/common/types';
 
 export function withSSRSession(fn: GetServerSideProps) {
   return async (ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
@@ -14,7 +15,7 @@ export function withSSRSession(fn: GetServerSideProps) {
     if (cookie) {
       try {
         const me = await apiSSR
-          .get<User>(ROUTES.getMe(), {
+          .get<User>(ROUTES.getUsersMe(), {
             headers: {
               cookie: ctx.req.headers.cookie,
             },

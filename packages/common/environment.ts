@@ -1,0 +1,1 @@
+export const IS_NATIVE_APP = process.env.NEXT_PUBLIC_TAURI === `true`;
