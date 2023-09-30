@@ -41,7 +41,7 @@ export const Button = <T,>({
       }
       disabled={disabled}
     >
-      <div className={clsx('transition-opacity duration-200 ease-in-out', loading && 'opacity-0')}>{children}</div>
+      <div className={clsx('transition-opacity duration-200 ease-in-out text-center', loading && 'opacity-0')}>{children}</div>
 
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center">

@@ -14,7 +14,7 @@ model Account {
   id                String           @id @default(uuid())
   userId            String
   provider          EAccountProvider
-  providerAccountId String
+  providerAccountId String?
   password          String?
   refresh_token     String?          @db.Text
   access_token      String?          @db.Text

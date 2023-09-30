@@ -1,6 +1,6 @@
 import { Maybe } from '@logbook/common/types';
 import useSWRMutation from 'swr/mutation';
-import { api } from './api';
+import { api } from './client';
 
 type Method = 'POST' | 'PUT';
 

@@ -24,7 +24,6 @@ export class AuthService {
     const account = this.accountService.create({
       password: hashedPassword,
       provider: EAccountProvider.LOCAL,
-      providerAccountId: '',
       user: {
         connectOrCreate: {
           where: {

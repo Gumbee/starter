@@ -6,6 +6,7 @@ import { ROUTES } from '@logbook/api/routes';
 import { AxiosError } from 'axios';
 import { USER_LOCAL_STORAGE_KEY } from '../constants';
 import { useIsomorphicLayoutEffect } from 'react-use';
+import { ApiError } from '@logbook/common/types';
 
 type AuthProviderProps = PropsWithChildren;
 
@@ -31,10 +32,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       .get<User>(ROUTES.getUsersMe())
       .then((x) => x.data)
       .then(setUser)
-      .catch((e: AxiosError) => {
-        const status = e.response?.status ?? 0;
-
-        if (status === 401) {
+      .catch((e: ApiError) => {
+        if (e.status === 401) {
           // not authorized => token invalid
           setUser(undefined);
         }
