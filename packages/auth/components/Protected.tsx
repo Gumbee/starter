@@ -1,4 +1,6 @@
 import { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
+import {useRouter} from 'next/router'
+import { PAGES } from '@logbook/common/pages';
 import { useUser } from '..';
 
 type ProtectedProps = PropsWithChildren<{
@@ -8,11 +10,14 @@ type ProtectedProps = PropsWithChildren<{
   fallback?: ReactNode;
   // action to perform when the condition is not fulfilled
   fallbackAction?: () => void;
+  // if redirect is set, then the fallbackAction will be to redirect to the login page
+  redirect?: string;
   // if inverted, then the condition is that the user is NOT logged in
   inverted?: boolean;
 }>;
 
-export const Protected: FC<ProtectedProps> = ({ fallback, fallbackAction, children, inverted = false, soft = false }) => {
+export const Protected: FC<ProtectedProps> = ({ fallback, fallbackAction, children, inverted = false, soft = false, redirect = PAGES.signin() }) => {
+  const router = useRouter();
   const { user, initializing } = useUser();
 
   const fulfilled = inverted ? !user : !!user;
@@ -20,6 +25,10 @@ export const Protected: FC<ProtectedProps> = ({ fallback, fallbackAction, childr
   useEffect(() => {
     if (!fulfilled) {
       fallbackAction?.();
+
+      if(redirect){
+        router.push(redirect)
+      }
     }
   }, [fulfilled]);
 

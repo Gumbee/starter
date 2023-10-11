@@ -5,7 +5,6 @@ import { EmptyLayout } from '@/layouts/EmptyLayout';
 import { Input } from '@/components/Input';
 import { Logo } from '@/components/Logo';
 import { ifWeb, withSSRSession } from '@/utils/ssr';
-import { useRouter } from 'next/router';
 import { PAGES } from '@logbook/common/pages';
 import { useState } from 'react';
 import { ApiError } from '@logbook/common/types';
@@ -13,7 +12,6 @@ import { ERROR_CODES } from '@logbook/common/errors';
 import Link from 'next/link';
 
 const Page: LogbookPage = ({}) => {
-  const router = useRouter();
   const loading = useLoading();
   const { handleOAuthSignin } = useOAuthProviderSignin();
   const { handleSignIn } = useCredentialsSignIn();
@@ -39,9 +37,7 @@ const Page: LogbookPage = ({}) => {
   return (
     <Protected
       inverted
-      fallbackAction={() => {
-        router.push(PAGES.home());
-      }}
+      redirect={PAGES.home()}
     >
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="flex flex-col pb-[60px]">

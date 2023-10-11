@@ -1,26 +1,21 @@
-import { Sidebar, SidebarItem } from '@/components/Sidebar';
 import { LayoutProps } from '@/types/layout';
-import { Books, FadersHorizontal, Pen, ShootingStar } from '@phosphor-icons/react';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import clsx from 'clsx';
 import { FC } from 'react';
+import { useRouter } from 'next/router';
 
 type DefaultLayoutProps = LayoutProps;
 
-const NAV_ITEMS: SidebarItem[] = [
-  { href: '/', icon: Pen },
-  { href: '/logs', icon: Books },
-  { href: '/insights', icon: ShootingStar },
-  { href: '/settings', icon: FadersHorizontal },
-];
-
 export const DefaultLayout: FC<DefaultLayoutProps> = ({ children, className }) => {
-  return (
-    <main className={clsx('flex min-h-screen', className)}>
-      <div className="p-[32px]">
-        <Sidebar items={NAV_ITEMS} />
-      </div>
+  const router = useRouter();
 
-      <div className="flex-1 flex flex-col">{children}</div>
+  return (
+    <main className={clsx('flex flex-col min-h-screen', className)}>
+      <SwitchTransition mode="out-in">
+        <CSSTransition key={router.pathname} classNames="page" timeout={200}>
+          <div className="flex-1 flex flex-col">{children}</div>
+        </CSSTransition>
+      </SwitchTransition>
     </main>
   );
 };
