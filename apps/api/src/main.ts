@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app/app.module';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NODE_ENV } from './constants/environment';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -50,6 +50,8 @@ async function bootstrap() {
     SwaggerModule.setup(`docs`, app, document);
   }
 
-  await app.listen(3001);
+  await app.listen(process.env.PORT ?? 3001);
+
+  Logger.log(`API is running on: ${await app.getUrl()}`);
 }
 bootstrap();

@@ -6,6 +6,9 @@ const nextConfig = {
   output: process.env.NEXT_PUBLIC_TAURI === `true` ? 'export' : 'export',
   reactStrictMode: true,
   transpilePackages: ['@logbook/*'],
+  experimental: {
+    optimizePackageImports: ['@phosphor-icons/react'],
+  },
   webpack: (config, { isServer }) => {
     // dynamically rewrite some .tauri and .web imports to reduce bundle size
     config.resolve.plugins.push(new TauriResolver());

@@ -14,6 +14,8 @@
     "dev": "turbo dev --parallel",
     "dev:web": "turbo dev --parallel",
     "dev:desktop": "turbo dev:desktop --parallel",
+    "start": "turbo start --parallel",
+    "start:prod": "turbo start:prod --parallel",
     "lint": "turbo lint"
   },
   "devDependencies": {
