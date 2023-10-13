@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  word-break: break-word;
+}
+
 button,
 input {
   @apply outline-none focus-visible:outline-[2px] focus-visible:outline-black focus-visible:outline-offset-0;
@@ -13,7 +19,9 @@ input {
 
 .page-enter-active {
   opacity: 1;
-  transition: opacity 200ms, transform 200ms;
+  transition:
+    opacity 200ms,
+    transform 200ms;
 }
 
 .page-exit {
@@ -22,5 +30,7 @@ input {
 
 .page-exit-active {
   opacity: 0;
-  transition: opacity 200ms, transform 200ms;
+  transition:
+    opacity 200ms,
+    transform 200ms;
 }

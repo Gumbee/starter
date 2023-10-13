@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "analyze": "ANALYZE=true next dev",
     "dev": "next dev",
     "dev:desktop": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri dev",
     "build": "next build",
@@ -39,6 +40,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.5.4",
     "@tauri-apps/cli": "^1.4.0",
     "@types/react-transition-group": "^4.4.7",
     "ignore-loader": "^0.1.2"
