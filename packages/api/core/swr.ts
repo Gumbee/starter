@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { BareFetcher, PublicConfiguration } from 'swr/_internal';
-import { api } from './client';
-import { Maybe } from '@logbook/common/types';
+import { api } from '../client';
+import { ApiError, Maybe } from '@logbook/common/types';
 
 export const apiFetcher = (url: string) =>
   url
@@ -20,7 +20,7 @@ export const apiFetcher = (url: string) =>
 export function useApiSWR<T>(path: Maybe<string>, options?: Partial<PublicConfiguration<T, any, BareFetcher<T>>>) {
   const fetcher = options?.fetcher ?? apiFetcher;
 
-  const { data, error, isValidating, mutate } = useSWR<T>(path ?? null, fetcher as any, options);
+  const { data, error, isValidating, mutate } = useSWR<T, ApiError>(path ?? null, fetcher as any, options);
 
   const initialized = !isValidating || !!error || !!data;
 
@@ -28,7 +28,7 @@ export function useApiSWR<T>(path: Maybe<string>, options?: Partial<PublicConfig
 
   return {
     data,
-    error: error,
+    error,
     loading,
     initialized,
     mutate,

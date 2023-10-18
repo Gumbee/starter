@@ -1,6 +1,7 @@
-import { Maybe } from '@logbook/common/types';
+import { ApiError, Maybe } from '@logbook/common/types';
 import useSWRMutation from 'swr/mutation';
-import { api } from './client';
+import { api } from '../client';
+import { Key } from 'swr';
 
 type Method = 'POST' | 'PUT';
 
@@ -18,10 +19,14 @@ export const apiPoster =
         });
   };
 
-export function useApiSWRMutation<T>(path: Maybe<string>, method?: Method, options?: Parameters<typeof useSWRMutation<T>>[2]) {
+export function useApiSWRMutation<T, D>(
+  path: Maybe<string>,
+  method?: Method,
+  options?: Parameters<typeof useSWRMutation<T, ApiError, Key, D>>[2],
+) {
   const fetcher = options?.fetcher ?? apiPoster(method ?? 'POST');
 
-  const { data, error, ...rest } = useSWRMutation<T>(path ?? null, fetcher as any, options);
+  const { data, error, ...rest } = useSWRMutation<T, ApiError, Key, D>(path ?? null, fetcher as any, options);
 
   return {
     data,
