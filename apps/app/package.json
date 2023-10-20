@@ -5,10 +5,10 @@
   "scripts": {
     "analyze": "ANALYZE=true next dev",
     "dev": "next dev",
-    "dev:desktop": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri dev",
+    "dev:desktop": "dotenv -e ../../.env.local -e .env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri dev",
     "build": "next build",
-    "build:desktop": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build",
-    "build:desktop:debug": "dotenv -e ../../.env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build --debug",
+    "build:desktop": "dotenv -e ../../.env.local -e .env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build",
+    "build:desktop:debug": "dotenv -e ../../.env.local -e .env.local -e ../../.env -v NEXT_PUBLIC_TAURI=true -- tauri build --debug",
     "start": "next start",
     "lint": "next lint"
   },
