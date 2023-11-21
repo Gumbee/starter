@@ -47,8 +47,10 @@ export class AuthService {
   ): Promise<Account & { user: User }> {
     const { id, displayName, emails, photos } = profile;
 
-    const email = emails.length > 0 ? emails[0].value : undefined;
-    const avatar = photos[0].value;
+    const email = emails && emails.length > 0 ? emails[0].value : undefined;
+    const avatar = photos?.[0].value;
+
+    if (!email) throw new Error('No email found in google profile');
 
     const account = this.accountService.create({
       provider: EAccountProvider.GOOGLE,
@@ -76,7 +78,9 @@ export class AuthService {
   async findGoogleAccount(profile: GoogleProfile) {
     const { emails } = profile;
 
-    const email = emails.length > 0 ? emails[0].value : undefined;
+    const email = emails && emails.length > 0 ? emails[0].value : undefined;
+
+    if (!email) throw new Error('No email found in google profile');
 
     return this.accountService.findByEmailAndProvider(email, EAccountProvider.GOOGLE);
   }

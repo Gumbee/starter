@@ -22,7 +22,7 @@ export class AccountService {
   /**
    * Return the account (of a given provider type) associated with the given email
    */
-  async findByEmailAndProvider(email: string, provider: EAccountProvider): Promise<Optional<Account & { user: User }>> {
+  async findByEmailAndProvider(email: string, provider: EAccountProvider) {
     ParameterMissingException.throwUnlessExist(email, provider);
 
     return this.prisma.account.findFirst({

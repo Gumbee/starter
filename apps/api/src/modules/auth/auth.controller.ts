@@ -61,6 +61,8 @@ export class AuthController {
   googleAuthRedirect(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
 
+    if (!user) throw new UnauthorizedException({ code: ERROR_CODES.UNAUTHORIZED, message: 'User not found' });
+
     this.cookiesService.setUserTokenCookie(res, user);
 
     return {
@@ -86,6 +88,8 @@ export class AuthController {
   @UseGuards(GoogleOAuthNativeGuard)
   googleAuthRedirectNativeRedeem(@Req() req: Request, @Res() res: Response) {
     const user = req.user;
+
+    if (!user) throw new UnauthorizedException({ code: ERROR_CODES.UNAUTHORIZED, message: 'User not found' });
 
     this.cookiesService.setUserTokenCookie(res, user);
 
