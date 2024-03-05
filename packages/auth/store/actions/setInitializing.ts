@@ -1,4 +1,4 @@
-import { Getter, Mutator } from '@logbook/common/types/zustand';
+import { Getter, Mutator } from '@forge/common/types/zustand';
 import { AuthStore } from '..';
 
 export const setInitializing = (set: Mutator<AuthStore>, _: Getter<AuthStore>) => (x: boolean) => {

@@ -1,4 +1,4 @@
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ERROR_CODES } from '@forge/common/errors';
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
 import { Response } from 'express';
 

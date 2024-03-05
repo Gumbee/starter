@@ -4,8 +4,8 @@ import { Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { UserService } from 'src/modules/user/user.service';
-import { AUTH_COOKIE_NAME } from '@logbook/common/constants';
-import { ERROR_CODES } from '@logbook/common/errors';
+import { AUTH_COOKIE_NAME } from '@forge/common/constants';
+import { ERROR_CODES } from '@forge/common/errors';
 
 const cookieExtractor = (req: Request) => {
   let jwt = null;

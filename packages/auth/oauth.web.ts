@@ -1,8 +1,8 @@
-import { API_BASE_URL } from '@logbook/api/constants';
+import { API_BASE_URL } from '@forge/api/constants';
 import { OAuthHook, OAuthProvider } from './types';
-import { ROUTES } from '@logbook/api/routes';
-import { User } from '@logbook/database';
-import { Optional } from '@logbook/common/types';
+import { ROUTES } from '@forge/api/routes';
+import { User } from '@forge/database';
+import { Optional } from '@forge/common/types';
 import { useSetLoading, useSetUser } from './store/hooks';
 
 export function useOAuthProviderSignin(): OAuthHook {

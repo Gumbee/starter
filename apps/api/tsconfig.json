@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": false,
     "baseUrl": "./",
     "paths": {
-      "@logbook/*": ["../../packages/*"],
+      "@forge/*": ["../../packages/*"],
       "@modules/*": ["src/modules/*"],
       "@/*": ["src/*"]
     }

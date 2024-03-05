@@ -1,4 +1,4 @@
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ERROR_CODES } from '@forge/common/errors';
 import { BadRequestException } from '@nestjs/common';
 
 export class ParameterMissingException extends BadRequestException {

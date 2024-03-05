@@ -3,7 +3,7 @@ import { Strategy, Profile } from 'passport-google-oauth20';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ERROR_CODES } from '@forge/common/errors';
 
 @Injectable()
 export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-native') {

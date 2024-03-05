@@ -1,4 +1,4 @@
-import { IS_NATIVE_APP } from '@logbook/common/environment';
+import { IS_NATIVE_APP } from '@forge/common/environment';
 import { useOAuthProviderSignin as useOAuthProviderSigninDesktop } from './oauth.desktop';
 import { useOAuthProviderSignin as useOAuthProviderSigninWeb } from './oauth.web';
 

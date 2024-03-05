@@ -1,14 +1,14 @@
 import { LogbookPage } from '@/types/page';
 import { Button } from '@/components/Button';
-import { Protected, useCredentialsSignIn, useLoading, useOAuthProviderSignin } from '@logbook/auth';
+import { Protected, useCredentialsSignIn, useLoading, useOAuthProviderSignin } from '@forge/auth';
 import { EmptyLayout } from '@/layouts/EmptyLayout';
 import { Input } from '@/components/Input';
 import { Logo } from '@/components/Logo';
 import { ifWeb, withSSRSession } from '@/utils/ssr';
-import { PAGES } from '@logbook/common/pages';
+import { PAGES } from '@forge/common/pages';
 import { useState } from 'react';
-import { ApiError } from '@logbook/common/types';
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ApiError } from '@forge/common/types';
+import { ERROR_CODES } from '@forge/common/errors';
 import Link from 'next/link';
 
 const Page: LogbookPage = ({}) => {
@@ -35,10 +35,7 @@ const Page: LogbookPage = ({}) => {
   };
 
   return (
-    <Protected
-      inverted
-      redirect={PAGES.home()}
-    >
+    <Protected inverted redirect={PAGES.home()}>
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="flex flex-col pb-[60px]">
           <Logo className="h-[28px] mb-[32px]" />

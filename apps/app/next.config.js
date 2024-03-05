@@ -5,7 +5,7 @@ const TauriResolver = require('./webpack/TauriResolver');
 const nextConfig = {
   output: process.env.NEXT_PUBLIC_TAURI === `true` ? 'export' : 'export',
   reactStrictMode: true,
-  transpilePackages: ['@logbook/*'],
+  transpilePackages: ['@forge/*'],
   experimental: {
     optimizePackageImports: ['@phosphor-icons/react'],
   },

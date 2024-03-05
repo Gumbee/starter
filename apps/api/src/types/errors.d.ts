@@ -1,4 +1,4 @@
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ERROR_CODES } from '@forge/common/errors';
 
 type Keys = keyof typeof ERROR_CODES;
 type Values = (typeof ERROR_CODES)[Keys];

@@ -1,7 +1,7 @@
-import { ROUTES } from '@logbook/api/routes';
-import { User } from '@logbook/database';
+import { ROUTES } from '@forge/api/routes';
+import { User } from '@forge/database';
 import { useLoading, useSetLoading, useSetUser } from './store/hooks';
-import { api } from '@logbook/api/client';
+import { api } from '@forge/api/client';
 import { AuthStore } from './store';
 
 export type CredentialsSignInHook = {

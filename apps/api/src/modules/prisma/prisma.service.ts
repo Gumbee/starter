@@ -1,4 +1,4 @@
-import { PrismaClient } from '@logbook/database';
+import { PrismaClient } from '@forge/database';
 import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
 
 @Injectable()

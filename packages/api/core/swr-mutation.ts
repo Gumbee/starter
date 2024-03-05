@@ -1,4 +1,4 @@
-import { ApiError, Maybe } from '@logbook/common/types';
+import { ApiError, Maybe } from '@forge/common/types';
 import useSWRMutation from 'swr/mutation';
 import { api } from '../client';
 import { Key } from 'swr';

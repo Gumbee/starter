@@ -1,4 +1,4 @@
-import { User } from '@logbook/database';
+import { User } from '@forge/database';
 import { ReqUser } from '@modules/auth/decorators/user.decorator';
 import { JwtAuthGuard } from '@modules/auth/guards/jwt-auth.guard';
 import { Controller, Get, UseGuards } from '@nestjs/common';

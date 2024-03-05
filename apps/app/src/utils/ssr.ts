@@ -1,12 +1,12 @@
-import { apiSSR } from '@logbook/api/client';
-import { ROUTES } from '@logbook/api/routes';
-import { User } from '@logbook/database';
-import { AUTH_COOKIE_NAME } from '@logbook/common/constants';
-import { IS_NATIVE_APP } from '@logbook/common/environment';
+import { apiSSR } from '@forge/api/client';
+import { ROUTES } from '@forge/api/routes';
+import { User } from '@forge/database';
+import { AUTH_COOKIE_NAME } from '@forge/common/constants';
+import { IS_NATIVE_APP } from '@forge/common/environment';
 import { GetServerSideProps, PreviewData } from 'next';
 import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { Optional } from '@logbook/common/types';
+import { Optional } from '@forge/common/types';
 
 export function withSSRSession(fn: GetServerSideProps) {
   return async (ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {

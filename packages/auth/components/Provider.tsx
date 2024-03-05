@@ -1,12 +1,12 @@
 import { FC, PropsWithChildren, useEffect, useLayoutEffect, useState } from 'react';
 import { useSetInitializing, useSetUser, useSetUserIfEmpty } from '..';
-import { User } from '@logbook/database';
-import { api } from '@logbook/api/client';
-import { ROUTES } from '@logbook/api/routes';
+import { User } from '@forge/database';
+import { api } from '@forge/api/client';
+import { ROUTES } from '@forge/api/routes';
 import { AxiosError } from 'axios';
 import { USER_LOCAL_STORAGE_KEY } from '../constants';
 import { useIsomorphicLayoutEffect } from 'react-use';
-import { ApiError } from '@logbook/common/types';
+import { ApiError } from '@forge/common/types';
 
 type AuthProviderProps = PropsWithChildren;
 

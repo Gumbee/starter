@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ParameterMissingException } from 'src/exceptions/parameter-missing-exception';
-import { Prisma, EAccountProvider, User, Account } from '@logbook/database';
-import { Optional } from '@logbook/common/types';
+import { Prisma, EAccountProvider, User, Account } from '@forge/database';
+import { Optional } from '@forge/common/types';
 
 @Injectable()
 export class AccountService {

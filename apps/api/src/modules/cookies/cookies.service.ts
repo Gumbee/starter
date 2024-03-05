@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { User } from '@logbook/database';
+import { User } from '@forge/database';
 import { AUTH_COOKIE_OPTIONS } from './config/authCookie';
-import { AUTH_COOKIE_NAME } from '@logbook/common/constants';
+import { AUTH_COOKIE_NAME } from '@forge/common/constants';
 import { TokenUser } from '@/types/token';
 
 @Injectable()

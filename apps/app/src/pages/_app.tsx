@@ -3,7 +3,7 @@ import '@/styles/globals.css';
 import { LogbookPage } from '@/types/page';
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
-import { AuthProvider } from '@logbook/auth';
+import { AuthProvider } from '@forge/auth';
 
 const inter = Inter({ subsets: ['latin'] });
 

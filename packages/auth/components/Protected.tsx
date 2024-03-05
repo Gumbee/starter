@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
-import {useRouter} from 'next/router'
-import { PAGES } from '@logbook/common/pages';
+import { useRouter } from 'next/router';
+import { PAGES } from '@forge/common/pages';
 import { useUser } from '..';
 
 type ProtectedProps = PropsWithChildren<{
@@ -16,7 +16,14 @@ type ProtectedProps = PropsWithChildren<{
   inverted?: boolean;
 }>;
 
-export const Protected: FC<ProtectedProps> = ({ fallback, fallbackAction, children, inverted = false, soft = false, redirect = PAGES.signin() }) => {
+export const Protected: FC<ProtectedProps> = ({
+  fallback,
+  fallbackAction,
+  children,
+  inverted = false,
+  soft = false,
+  redirect = PAGES.signin(),
+}) => {
   const router = useRouter();
   const { user, initializing } = useUser();
 
@@ -26,8 +33,8 @@ export const Protected: FC<ProtectedProps> = ({ fallback, fallbackAction, childr
     if (!fulfilled) {
       fallbackAction?.();
 
-      if(redirect){
-        router.push(redirect)
+      if (redirect) {
+        router.push(redirect);
       }
     }
   }, [fulfilled]);

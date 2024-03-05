@@ -1,4 +1,4 @@
-import { User } from '@logbook/database';
+import { User } from '@forge/database';
 
 declare module 'http' {
   interface IncomingMessage {

@@ -2,9 +2,9 @@ import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
 import { UnauthorizedException, Injectable, InternalServerErrorException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { AccountService } from '@modules/account/account.service';
-import { EAccountProvider } from '@logbook/database';
+import { EAccountProvider } from '@forge/database';
 import bcrypt from 'bcryptjs';
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ERROR_CODES } from '@forge/common/errors';
 import { isEmail } from 'class-validator';
 
 @Injectable()

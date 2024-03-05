@@ -13,10 +13,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@logbook/api": "*",
-    "@logbook/auth": "*",
-    "@logbook/common": "*",
-    "@logbook/database": "*",
+    "@forge/api": "*",
+    "@forge/auth": "*",
+    "@forge/common": "*",
+    "@forge/database": "*",
     "@phosphor-icons/react": "^2.0.13",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/react": "^2.1.11",

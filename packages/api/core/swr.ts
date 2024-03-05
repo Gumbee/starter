@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { BareFetcher, PublicConfiguration } from 'swr/_internal';
 import { api } from '../client';
-import { ApiError, Maybe } from '@logbook/common/types';
+import { ApiError, Maybe } from '@forge/common/types';
 
 export const apiFetcher = (url: string) =>
   url

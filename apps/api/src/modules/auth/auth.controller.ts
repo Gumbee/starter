@@ -10,7 +10,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { GoogleOAuthNativeGuard } from './guards/google-native.guard';
 import { FrontendService } from '@modules/frontend/frontend.service';
 import { ConfigService } from '@nestjs/config';
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ERROR_CODES } from '@forge/common/errors';
 
 @ApiTags('Authentication')
 @Controller(`auth`)

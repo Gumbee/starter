@@ -1,12 +1,12 @@
-import { User } from '@logbook/database';
-import { api } from '@logbook/api/client';
-import { ROUTES } from '@logbook/api/routes';
+import { User } from '@forge/database';
+import { api } from '@forge/api/client';
+import { ROUTES } from '@forge/api/routes';
 import { OAuthHook, OAuthProvider } from './types';
 import { invoke } from '@tauri-apps/api/tauri';
 import { open } from '@tauri-apps/api/shell';
 import { UnlistenFn, listen } from '@tauri-apps/api/event';
-import { Optional } from '@logbook/common/types';
-import { API_BASE_URL } from '@logbook/api/constants';
+import { Optional } from '@forge/common/types';
+import { API_BASE_URL } from '@forge/api/constants';
 import { useSetLoading, useSetUser } from './store/hooks';
 
 let unlisten: Optional<UnlistenFn> = undefined;

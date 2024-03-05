@@ -1,15 +1,15 @@
 import { LogbookPage } from '@/types/page';
 import { Button } from '@/components/Button';
-import { Protected, useCredentialsSignUp, useLoading } from '@logbook/auth';
+import { Protected, useCredentialsSignUp, useLoading } from '@forge/auth';
 import { EmptyLayout } from '@/layouts/EmptyLayout';
 import { Input } from '@/components/Input';
 import { Logo } from '@/components/Logo';
 import { ifWeb, withSSRSession } from '@/utils/ssr';
 import { useRouter } from 'next/router';
-import { PAGES } from '@logbook/common/pages';
+import { PAGES } from '@forge/common/pages';
 import { useState } from 'react';
-import { ApiError } from '@logbook/common/types';
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ApiError } from '@forge/common/types';
+import { ERROR_CODES } from '@forge/common/errors';
 import Link from 'next/link';
 
 const Page: LogbookPage = ({}) => {

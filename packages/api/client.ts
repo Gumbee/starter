@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { API_BASE_URL } from './constants';
-import { ERROR_CODES } from '@logbook/common/errors';
-import { ApiError } from '@logbook/common/types';
+import { ERROR_CODES } from '@forge/common/errors';
+import { ApiError } from '@forge/common/types';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,

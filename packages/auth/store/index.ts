@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { EAccountProvider, User } from '@logbook/database';
-import { Optional } from '@logbook/common/types';
+import { EAccountProvider, User } from '@forge/database';
+import { Optional } from '@forge/common/types';
 import { setUser } from './actions/setUser.action';
 import { setUserIfEmpty } from './actions/setUserIfEmpty.action';
 import { setInitializing } from './actions/setInitializing';

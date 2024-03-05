@@ -1,6 +1,6 @@
 import { LogbookPage } from '@/types/page';
 import { Button } from '@/components/Button';
-import { Protected, useLogout } from '@logbook/auth';
+import { Protected, useLogout } from '@forge/auth';
 import { EmptyLayout } from '@/layouts/EmptyLayout';
 import { ifWeb, withSSRSession } from '@/utils/ssr';
 

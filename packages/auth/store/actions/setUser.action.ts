@@ -1,7 +1,7 @@
-import { Getter, Mutator } from '@logbook/common/types/zustand';
-import { User } from '@logbook/database';
+import { Getter, Mutator } from '@forge/common/types/zustand';
+import { User } from '@forge/database';
 import { AuthStore } from '..';
-import { Optional } from '@logbook/common/types';
+import { Optional } from '@forge/common/types';
 import { USER_LOCAL_STORAGE_KEY } from '../../constants';
 
 export const setUser = (set: Mutator<AuthStore>, _: Getter<AuthStore>) => (user: Optional<User>) => {

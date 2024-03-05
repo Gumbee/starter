@@ -1,4 +1,4 @@
-import { User } from '@logbook/database';
+import { User } from '@forge/database';
 import { useApiSWR } from '../../core/swr';
 import { ROUTES } from '../../routes';
 

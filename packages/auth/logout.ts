@@ -1,5 +1,5 @@
-import { api } from '@logbook/api/client';
-import { ROUTES } from '@logbook/api/routes';
+import { api } from '@forge/api/client';
+import { ROUTES } from '@forge/api/routes';
 import { useLoading, useSetLoading, useSetUser } from '.';
 import { AuthStore } from './store';
 

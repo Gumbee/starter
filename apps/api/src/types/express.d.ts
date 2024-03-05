@@ -1,4 +1,4 @@
-import { User as UserDB } from '@logbook/database';
+import { User as UserDB } from '@forge/database';
 
 // set the user type on the express request object
 declare global {

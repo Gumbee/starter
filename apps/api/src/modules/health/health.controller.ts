@@ -1,6 +1,6 @@
 import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { HealthService } from './health.service';
-import { ERROR_CODES } from '@logbook/common/errors';
+import { ERROR_CODES } from '@forge/common/errors';
 
 @Controller('/health')
 export class HealthController {

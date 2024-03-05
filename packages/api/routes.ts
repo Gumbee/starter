@@ -1,4 +1,4 @@
-import { Maybe } from '@logbook/common/types';
+import { Maybe } from '@forge/common/types';
 
 const withArgs = (...args: Maybe<string>[]) => (args.some((a) => !a) ? undefined : args[args.length - 1]);
 

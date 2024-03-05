@@ -1,4 +1,4 @@
-import { Account, EAccountProvider, User } from '@logbook/database';
+import { Account, EAccountProvider, User } from '@forge/database';
 import { Injectable } from '@nestjs/common';
 import { CredentialsSignupDTO } from './dto/credentials-signup.dto';
 import { AccountService } from '@modules/account/account.service';
