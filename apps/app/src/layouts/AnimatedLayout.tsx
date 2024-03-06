@@ -40,27 +40,12 @@ export const AnimatedLayout: FC<AnimatedLayoutProps> = ({ children, className, d
       }
     };
 
-    const onStart = () => {
-      scroll.current = window.scrollY;
-    };
-
-    const onComplete = () => {
-      if (scroll.current > 0) {
-        // window.scrollTo({
-        //   top: 0,
-        //   behavior: 'smooth',
-        // });
-      }
-    };
-
     router.events.on('routeChangeStart', onHistoryChange);
-    router.events.on('routeChangeComplete', onComplete);
 
     return () => {
       router.events.off('routeChangeStart', onHistoryChange);
-      router.events.off('routeChangeComplete', onComplete);
     };
-  }, [router]);
+  }, [router, pathname]);
 
   useEffect(() => {
     exit.current = duration;

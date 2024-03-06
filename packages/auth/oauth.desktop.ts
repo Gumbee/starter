@@ -1,4 +1,3 @@
-import { User, UserWithMembership } from '@forge/database';
 import { api } from '@forge/api/client';
 import { ROUTES } from '@forge/api/routes';
 import { OAuthHook, OAuthProvider } from './types';
@@ -8,6 +7,7 @@ import { UnlistenFn, listen } from '@tauri-apps/api/event';
 import { Optional } from '@forge/common/types';
 import { API_BASE_URL } from '@forge/api/constants';
 import { useSetLoading, useSetUser } from './store/hooks';
+import { User } from '@forge/database';
 
 let unlisten: Optional<UnlistenFn> = undefined;
 
@@ -21,10 +21,10 @@ export function useOAuthProvider(): OAuthHook {
     provider: OAuthProvider,
     method: 'signin' | 'signup',
     data?: Record<string, Optional<string>>,
-  ): Promise<Optional<UserWithMembership>> => {
+  ): Promise<Optional<User>> => {
     setLoading(provider);
 
-    return new Promise<Optional<UserWithMembership>>(async (resolve, reject) => {
+    return new Promise<Optional<User>>(async (resolve, reject) => {
       const [codeChallenge, codeVerifier] = await invoke<[string, string]>('generate_code_challenge');
 
       // felt weird when it opens instantly, so we wait a bit

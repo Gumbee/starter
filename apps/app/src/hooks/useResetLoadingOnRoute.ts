@@ -16,5 +16,5 @@ export function useResetLoadingOnRoute() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChangeComplete);
     };
-  }, [router]);
+  }, [router, setLoading]);
 }
