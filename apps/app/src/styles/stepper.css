@@ -1,0 +1,74 @@
+.step-enter,
+.step-enter-active {
+  /* transition: all cubic-bezier(0.65, 0, 0.35, 1) var(--in-duration); */
+  transition:
+    transform var(--in-duration),
+    opacity var(--in-duration);
+  transition-delay: var(--in-delay);
+}
+
+.step-exit,
+.step-exit-active {
+  pointer-events: none;
+  transition:
+    transform cubic-bezier(0.65, 0, 0.35, 1) var(--out-duration),
+    opacity cubic-bezier(0.65, 0, 0.35, 1) var(--out-duration);
+  transition-delay: var(--out-delay);
+  position: absolute;
+}
+
+.step__fade {
+  opacity: 1;
+}
+
+.step__fade.step-enter {
+  opacity: 0;
+}
+
+.step__fade.step-enter-active {
+  opacity: 1;
+}
+
+.step__fade.step-exit {
+  opacity: 1;
+}
+
+.step__fade.step-exit-active {
+  opacity: 0;
+}
+
+.step__slide {
+  transform: translateX(0);
+}
+
+[data-direction='forward'] > .step__slide.step-enter {
+  transform: translateX(22px);
+}
+
+[data-direction='forward'] > .step__slide.step-enter-active {
+  transform: translateX(0);
+}
+
+[data-direction='forward'] > .step__slide.step-exit {
+  transform: translateX(0);
+}
+
+[data-direction='forward'] > .step__slide.step-exit-active {
+  transform: translateX(-42px);
+}
+
+[data-direction='backward'] > .step__slide.step-enter {
+  transform: translateX(-42px);
+}
+
+[data-direction='backward'] > .step__slide.step-enter-active {
+  transform: translateX(0);
+}
+
+[data-direction='backward'] > .step__slide.step-exit {
+  transform: translateX(0);
+}
+
+[data-direction='backward'] > .step__slide.step-exit-active {
+  transform: translateX(22px);
+}

@@ -4,12 +4,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
 import { ERROR_CODES } from '@forge/common/errors';
+import { UserService } from '@modules/user/user.service';
 
 @Injectable()
 export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-native') {
   constructor(
     config: ConfigService,
     private authService: AuthService,
+    private userService: UserService,
   ) {
     super({
       clientID: config.get('GOOGLE_CLIENT_ID'),
@@ -56,10 +58,12 @@ export class GoogleNativeStrategy extends PassportStrategy(Strategy, 'google-nat
       account = await this.authService.createAccountFromGoogle(profile, accessToken, refreshToken, ['email', 'profile']);
     }
 
-    if (!account?.user) {
+    const user = await this.userService.findById(account.user.id);
+
+    if (!user) {
       throw new NotFoundException({ code: ERROR_CODES.UNKNOWN_ERROR, message: 'User could not be created or found for some reason' });
     }
 
-    return account.user;
+    return user;
   }
 }

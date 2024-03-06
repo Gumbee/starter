@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "db:generate": "prisma generate",
-    "db:push": "dotenv -e ../../.env.local -e ../../.env prisma db push"
+    "db:push": "dotenv -e ../../.env.local -e ../../.env -- prisma db push --accept-data-loss",
+    "db:reset": "dotenv -e ../../.env.local -e ../../.env -- prisma migrate reset --force"
   },
   "dependencies": {
     "@prisma/client": "^5.3.1"

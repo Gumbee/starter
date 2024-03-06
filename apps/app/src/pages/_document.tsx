@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
@@ -7,7 +7,8 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <div data-notifications className="relative z-[104] pointer-events-auto" />
       </body>
     </Html>
-  )
+  );
 }

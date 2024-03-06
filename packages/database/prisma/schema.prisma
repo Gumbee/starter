@@ -35,6 +35,20 @@ model User {
   avatar   String?
   accounts Account[]
 
+  entry     String?
+  entryCode EntryCode? @relation(fields: [entry], references: [code])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model EntryCode {
+  code    String @id
+  uses    Int    @default(0)
+  maxUses Int?
+
+  users User[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }

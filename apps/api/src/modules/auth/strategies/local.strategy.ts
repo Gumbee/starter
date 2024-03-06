@@ -6,10 +6,14 @@ import { EAccountProvider } from '@forge/database';
 import bcrypt from 'bcryptjs';
 import { ERROR_CODES } from '@forge/common/errors';
 import { isEmail } from 'class-validator';
+import { UserService } from '@modules/user/user.service';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, `local`) {
-  constructor(private accountService: AccountService) {
+  constructor(
+    private accountService: AccountService,
+    private userService: UserService,
+  ) {
     super({ usernameField: `email` });
   }
 
@@ -29,7 +33,13 @@ export class LocalStrategy extends PassportStrategy(Strategy, `local`) {
     }
 
     if (account && (await bcrypt.compare(password, account.password))) {
-      return account.user;
+      const user = await this.userService.findById(account.user.id);
+
+      if (!user) {
+        throw new NotFoundException({ code: ERROR_CODES.UNKNOWN_ERROR, message: 'User could not be found for some reason' });
+      }
+
+      return user;
     }
 
     throw new UnauthorizedException({ code: ERROR_CODES.INVALID_CREDENTIALS, message: 'Invalid credentials' });

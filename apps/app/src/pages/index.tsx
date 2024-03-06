@@ -1,41 +1,26 @@
 import { LogbookPage } from '@/types/page';
-import { Button } from '@/components/Button';
-import { Protected, useLogout } from '@forge/auth';
-import { EmptyLayout } from '@/layouts/EmptyLayout';
-import { ifWeb, withSSRSession } from '@/utils/ssr';
+import { useLogout } from '@forge/auth';
+import { ifWeb, withHasAuth } from '@/utils/ssr';
+import Link from 'next/link';
+import { PAGES } from '@forge/common/pages';
 
 const Page: LogbookPage = ({}) => {
-  const { logout, loading } = useLogout();
-
   return (
-    <Protected>
-      <div className="flex-1 flex flex-col items-center justify-center">
-        <div className="flex flex-col pb-[60px]">
-          <Button
-            variant="success"
-            pressScale={0.99}
-            onClick={() => {
-              logout().catch();
-            }}
-            loading={loading === 'logout'}
-          >
-            Sign out
-          </Button>
-        </div>
+    <div className="flex-1 flex flex-col">
+      <div className="w-full py-[20px] bg-blue-500 transition__fade">
+        Landing Page <Link href={PAGES.signin()}>Login</Link>
       </div>
-    </Protected>
+    </div>
   );
 };
 
-Page.layout = EmptyLayout;
-
 export const getServerSideProps = ifWeb(
-  withSSRSession(async (ctx) => {
-    if (ctx.req.user) {
+  withHasAuth(async (ctx, hasAuth) => {
+    if (hasAuth) {
       return {
         props: {},
         redirect: {
-          destination: '/log/moma',
+          destination: '/dashboard',
           permanent: false,
         },
       };

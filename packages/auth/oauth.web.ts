@@ -2,22 +2,24 @@ import { API_BASE_URL } from '@forge/api/constants';
 import { OAuthHook, OAuthProvider } from './types';
 import { ROUTES } from '@forge/api/routes';
 import { User } from '@forge/database';
-import { Optional } from '@forge/common/types';
+import { ApiError, Optional } from '@forge/common/types';
 import { useSetLoading, useSetUser } from './store/hooks';
+import { ERROR_CODES, ErrorCode } from '@forge/common/errors';
 
-export function useOAuthProviderSignin(): OAuthHook {
+export function useOAuthProvider(): OAuthHook {
   const setUser = useSetUser();
   const setLoading = useSetLoading();
 
-  const handleOAuthSignin = (provider: OAuthProvider): Promise<any> => {
+  const handleOAuth = (
+    provider: OAuthProvider,
+    mehtod: 'signin' | 'signup',
+    data?: Record<string, Optional<string>>,
+  ): Promise<Optional<User>> => {
     setLoading(provider);
 
     return new Promise<Optional<User>>((resolve, reject) => {
-      const popup = window.open(
-        `${API_BASE_URL}${ROUTES.getOAuthRoute(provider)}`,
-        undefined,
-        `popup=yes,left=1000,top=100,width=700,height=800`,
-      );
+      const route = mehtod === 'signin' ? ROUTES.getOAuthSigninRoute(provider, data) : ROUTES.getOAuthSignupRoute(provider, data);
+      const popup = window.open(`${API_BASE_URL}${route}`, undefined, `popup=yes,left=1000,top=100,width=700,height=800`);
 
       let poll: number;
 
@@ -44,13 +46,11 @@ export function useOAuthProviderSignin(): OAuthHook {
         cleanup();
       };
 
-      const handleFailure = (code: string) => {
+      const handleFailure = (error: { code: ErrorCode; message: string }) => {
         reject({
-          code: code,
-          error: code,
-          status: undefined,
-          message: undefined,
-        });
+          code: error.code,
+          message: error.message,
+        } as ApiError);
 
         cleanup();
       };
@@ -67,10 +67,13 @@ export function useOAuthProviderSignin(): OAuthHook {
 
               handleSuccess(userData);
             } else {
-              handleFailure(data.error ?? `UNKNOWN_ERROR`);
+              handleFailure(data.error);
             }
           } else {
-            handleFailure(`UNKNOWN_ERROR`);
+            handleFailure({
+              code: ERROR_CODES.UNKNOWN_ERROR,
+              message: `Oopsie daisy. Something went wrong.`,
+            });
           }
         }
       };
@@ -82,7 +85,7 @@ export function useOAuthProviderSignin(): OAuthHook {
           handleClosed();
           resolve(undefined);
         }
-      }, 500);
+      }, 1000);
 
       window.addEventListener(`close`, handleClosed);
       window.addEventListener(`unload`, handleClosed);
@@ -100,5 +103,5 @@ export function useOAuthProviderSignin(): OAuthHook {
       });
   };
 
-  return { handleOAuthSignin };
+  return { handleOAuth };
 }

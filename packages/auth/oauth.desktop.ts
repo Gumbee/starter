@@ -1,4 +1,4 @@
-import { User } from '@forge/database';
+import { User, UserWithMembership } from '@forge/database';
 import { api } from '@forge/api/client';
 import { ROUTES } from '@forge/api/routes';
 import { OAuthHook, OAuthProvider } from './types';
@@ -13,14 +13,18 @@ let unlisten: Optional<UnlistenFn> = undefined;
 
 let t: Optional<ReturnType<typeof setTimeout>> = undefined;
 
-export function useOAuthProviderSignin(): OAuthHook {
+export function useOAuthProvider(): OAuthHook {
   const setUser = useSetUser();
   const setLoading = useSetLoading();
 
-  const handleOAuthSignin = (provider: OAuthProvider): Promise<any> => {
+  const handleOAuth = (
+    provider: OAuthProvider,
+    method: 'signin' | 'signup',
+    data?: Record<string, Optional<string>>,
+  ): Promise<Optional<UserWithMembership>> => {
     setLoading(provider);
 
-    return new Promise<Optional<User>>(async (resolve, reject) => {
+    return new Promise<Optional<UserWithMembership>>(async (resolve, reject) => {
       const [codeChallenge, codeVerifier] = await invoke<[string, string]>('generate_code_challenge');
 
       // felt weird when it opens instantly, so we wait a bit
@@ -30,7 +34,10 @@ export function useOAuthProviderSignin(): OAuthHook {
         }, 300);
       });
 
-      await open(`${API_BASE_URL}${ROUTES.getOAuthNativeRoute(provider)}?code_challenge=${codeChallenge}`);
+      const route =
+        method === 'signin' ? ROUTES.getOAuthNativeSigninRoute(provider, data) : ROUTES.getOAuthNativeSignupRoute(provider, data);
+
+      await open(`${API_BASE_URL}${route}?code_challenge=${codeChallenge}`);
 
       clearTimeout(t);
 
@@ -44,7 +51,7 @@ export function useOAuthProviderSignin(): OAuthHook {
       listen<string>('scheme-request-received', async (event) => {
         const url = event.payload;
 
-        if (event.payload && event.payload.startsWith(`logbook://oauth/${provider}`)) {
+        if (event.payload && event.payload.startsWith(`artweave://oauth/${provider}`)) {
           const query = url.split('?')[1];
 
           api
@@ -88,5 +95,5 @@ export function useOAuthProviderSignin(): OAuthHook {
     });
   };
 
-  return { handleOAuthSignin };
+  return { handleOAuth };
 }

@@ -21,7 +21,7 @@ export const Protected: FC<ProtectedProps> = ({
   fallbackAction,
   children,
   inverted = false,
-  soft = false,
+  soft = true,
   redirect = PAGES.signin(),
 }) => {
   const router = useRouter();
@@ -30,16 +30,16 @@ export const Protected: FC<ProtectedProps> = ({
   const fulfilled = inverted ? !user : !!user;
 
   useEffect(() => {
-    if (!fulfilled) {
+    if (!fulfilled && !initializing) {
       fallbackAction?.();
 
       if (redirect) {
-        router.push(redirect);
+        router.replace(redirect);
       }
     }
-  }, [fulfilled]);
+  }, [fulfilled, initializing]);
 
-  if (initializing) return null;
+  if (initializing) return soft ? children : fallback ?? null;
   if (!fulfilled) return soft ? children : fallback ?? null;
 
   return children;

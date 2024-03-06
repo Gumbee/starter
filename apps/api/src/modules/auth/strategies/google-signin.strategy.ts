@@ -4,17 +4,20 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
 import { ERROR_CODES } from '@forge/common/errors';
+import { UserService } from '@modules/user/user.service';
+import { AuthFlowException } from '@/exceptions/auth-flow-exception';
 
 @Injectable()
-export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+export class GoogleSignInStrategy extends PassportStrategy(Strategy, 'google-signin') {
   constructor(
     config: ConfigService,
     private authService: AuthService,
+    private userService: UserService,
   ) {
     super({
       clientID: config.get('GOOGLE_CLIENT_ID'),
       clientSecret: config.get('GOOGLE_CLIENT_SECRET'),
-      callbackURL: `${config.get('SELF_URL')}/v1/auth/oauth/google/callback`,
+      callbackURL: `${config.get('SELF_URL')}/v1/auth/oauth/signin/google/callback`,
       scope: [`email`, `profile`],
       state: false,
       prompt: 'select_account',
@@ -23,16 +26,22 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   }
 
   async validate(accessToken: string, refreshToken: string, profile: Profile): Promise<any> {
-    let account = await this.authService.findGoogleAccount(profile);
+    const account = await this.authService.findGoogleAccount(profile);
 
     if (!account) {
-      account = await this.authService.createAccountFromGoogle(profile, accessToken, refreshToken, ['email', 'profile']);
+      throw new AuthFlowException({
+        code: ERROR_CODES.USER_NOT_FOUND,
+        message: 'User not found',
+        status: 404,
+      });
     }
 
-    if (!account?.user) {
+    const user = await this.userService.findById(account.user.id);
+
+    if (!user) {
       throw new NotFoundException({ code: ERROR_CODES.UNKNOWN_ERROR, message: 'User could not be created or found for some reason' });
     }
 
-    return account.user;
+    return user;
   }
 }

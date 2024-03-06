@@ -3,12 +3,29 @@ import { ROUTES } from '@forge/api/routes';
 import { User } from '@forge/database';
 import { AUTH_COOKIE_NAME } from '@forge/common/constants';
 import { IS_NATIVE_APP } from '@forge/common/environment';
-import { GetServerSideProps, PreviewData } from 'next';
+import { GetServerSideProps, GetServerSidePropsResult, PreviewData } from 'next';
 import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { Optional } from '@forge/common/types';
 
-export function withSSRSession(fn: GetServerSideProps) {
+type GetServerSidePropsWithInfo<P extends { [key: string]: any } = { [key: string]: any }> = (
+  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+  hasAuth: boolean,
+) => Promise<GetServerSidePropsResult<P>>;
+
+export function withHasAuth<P extends { [key: string]: any } = { [key: string]: any }>(fn: GetServerSidePropsWithInfo<P>) {
+  return async (ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
+    const cookie = ctx.req.cookies[AUTH_COOKIE_NAME];
+
+    if (cookie) {
+      return fn(ctx, true);
+    }
+
+    return fn(ctx, false);
+  };
+}
+
+export function withSSRSession<P extends { [key: string]: any } = { [key: string]: any }>(fn: GetServerSideProps<P>) {
   return async (ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
     const cookie = ctx.req.cookies[AUTH_COOKIE_NAME];
 
@@ -33,6 +50,8 @@ export function withSSRSession(fn: GetServerSideProps) {
 }
 
 // we can't use getServerSideProps in native apps
-export function ifWeb(fn: GetServerSideProps): Optional<GetServerSideProps> {
-  return IS_NATIVE_APP ? undefined : undefined;
+export function ifWeb<P extends { [key: string]: any } = { [key: string]: any }>(
+  fn: GetServerSideProps<P>,
+): Optional<GetServerSideProps<P>> {
+  return IS_NATIVE_APP ? undefined : fn;
 }

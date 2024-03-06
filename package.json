@@ -7,16 +7,19 @@
   "scripts": {
     "analyze": "turbo analyze",
     "build": "turbo build",
+    "build:api": "turbo build --filter=api",
     "build:web": "turbo build",
     "build:desktop": "turbo build:desktop",
     "build:desktop:debug": "turbo build:desktop:debug",
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push",
+    "db:reset": "turbo db:reset",
     "dev": "turbo dev --parallel",
     "dev:web": "turbo dev --parallel",
     "dev:desktop": "turbo dev:desktop --parallel",
     "start": "turbo start --parallel",
     "start:prod": "turbo start:prod --parallel",
+    "start:api:prod": "turbo start:prod --filter=api",
     "lint": "turbo lint"
   },
   "devDependencies": {

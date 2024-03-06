@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { Optional } from '@forge/common/types';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CredentialsSignupDTO {
   @IsEmail()
@@ -8,4 +9,12 @@ export class CredentialsSignupDTO {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsString()
+  @IsOptional()
+  name: Optional<string>;
+
+  @IsString()
+  @IsOptional()
+  entryCode: Optional<string>;
 }

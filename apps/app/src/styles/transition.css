@@ -1,0 +1,50 @@
+.page-enter {
+}
+
+.page-enter-active {
+  transition: all var(--transition-duration, 300ms) ease-in-out var(--transition-delay, 300ms);
+}
+
+.page-exit {
+  @apply min-h-screen;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.page-exit-active {
+  @apply min-h-screen;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: all var(--transition-duration, 300ms) ease-in-out;
+}
+
+.page-enter .transition__fade {
+  @apply opacity-0;
+}
+
+.page-enter-active .transition__fade {
+  @apply opacity-100;
+
+  transition: all var(--transition-duration, 300ms) ease-in-out var(--transition-delay, 300ms);
+}
+
+.page-exit .transition__fade {
+  @apply opacity-100;
+}
+
+.page-exit-active .transition__fade {
+  @apply opacity-0;
+
+  transition: all var(--transition-duration, 300ms) ease-in-out;
+}

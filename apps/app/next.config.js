@@ -3,7 +3,7 @@ const TauriResolver = require('./webpack/TauriResolver');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: process.env.NEXT_PUBLIC_TAURI === `true` ? 'export' : 'export',
+  output: process.env.NEXT_PUBLIC_TAURI === `true` ? 'export' : 'standalone',
   reactStrictMode: true,
   transpilePackages: ['@forge/*'],
   experimental: {
